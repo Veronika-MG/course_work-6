@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}войти{% endblock title %}
+
+{% block main %}
+
+<form method="post" class="mx-auto my-5 p-5 border rounded" style="max-width: 40rem;">
+    <h1>Войти</h1>
+    <p>Если у вас нет аккаунта, <a style="display: inline; padding-left: 0px;" class="link" href="{% url 'users:registration_form' %}">зарегистрируйтесь</a></p>
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="hidden" value="{{ next }}">
+    <input type="submit" class="btn btn-dark" value="войти">
+    <a style="display: inline;" class="" href="{% url 'users:reset_form' %}">забыли пароль?</a>
+</form>
+
+{% endblock main %}

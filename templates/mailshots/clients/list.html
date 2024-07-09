@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+Список клиентов
+{% endblock title %}
+
+{% block main %}
+<div style="max-width: 50rem;" class="mx-auto">
+<h1 class="me-5" style="display: inline-block;">Ваши клиенты</h1>
+
+
+{% for object in object_list %}
+<div class="card m-3 mx-auto" style="max-width: 50rem;">
+  <a class="btn btn-outline-primary" href="{% url 'mailshots:clients_detail' object.pk %}"><div class="card-body">
+    {{ object.email }}
+  </div>
+  </a>
+</div>
+{% endfor %}
+<div class="card m-3 p-0 mx-auto" style="max-width: 50rem;">
+  <a class="btn btn-outline-primary fs-1 p-0" href="{% url 'mailshots:clients_create' %}"><div class="card-body">
+    +
+  </div>
+  </a>
+</div>
+</div>
+{% endblock main %}

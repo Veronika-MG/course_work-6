@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load statistics %}
+
+{% block title %}
+Главная
+{% endblock title %}
+
+{% block main %}
+
+<div class="container text-center mb-5">
+  <div class="row fs-2 g-5">
+    <div class="col gy-5" >
+    <div style="height: 10rem;" class=" border rounded-3">
+      Всего рассылок: {% mailshots_amount %}
+    </div>
+    </div>
+    <div class="col gy-5">
+    <div style="height: 10rem;" class=" border rounded-3">
+      Активных рассылок: {% active_mailshots_amount %}
+    </div>
+    </div>
+    <div class="col gy-5">
+    <div style="height: 10rem;" class="border rounded-3">
+      Всего клиентов: {% clients_amount %}
+    </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="d-flex flex-row justify-content-center">
+
+
+
+{% for article in object_list %}
+
+<div class="card mx-4" style="width: 18rem; height: 30rem; display: inline-block;">
+  <img src="{{ article.image.url }}" class="card-img-top" alt="...">
+
+  <div class="card-body">
+    <h5 class="card-title">{{ article.heading }}</h5>
+    <p class="card-text">{{ article.body|truncatechars:100 }}</p>
+    <a href="{% url 'blog:detail' article.pk %}" class="btn btn-primary">Читать далее</a>
+  </div>
+  <div class="p-3">{{ article.views_amount }}</div>
+
+</div>
+
+    {% endfor %}
+</div>
+
+{% endblock main %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if object %}
+        Редактирование клиента
+    {% else %}
+        Создание клиента
+    {% endif %}
+{% endblock title %}
+
+{% block main %}
+    <div class="border rounded-3 mx-auto p-3" style="max-width: 50rem;">
+        <h1>
+            {% if object %}
+                Редактирование клиента
+            {% else %}
+                Создание клиента
+            {% endif %}
+        </h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <div class="d-flex justify-content-end">
+            {% if object %}
+                <input class="btn btn-outline-primary" type="submit" value="Обновить"/>
+            {% else %}
+                <button class="ms-3 btn btn-outline-primary" type="submit" name="next_view" value="one_off">Сохранить</button>
+                <button class="ms-3 btn btn-outline-primary" type="submit" name="next_view" value="one_more">Сохранить и добавить ещё</button>
+            {% endif %}
+        </div>
+        </form>
+    </div>
+{% endblock main %}

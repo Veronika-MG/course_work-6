@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block main %}
+
+<div class="container text-center my-3">
+    <div class="row">
+        <div class="mx-auto my-3 fs-3">
+            {{ object.defined_name }}
+        </div>
+    </div>
+    <div class="row gx-4">
+        <div class="col-sm-7">
+            <div class="container text-center border rounded-3 pt-2">
+                <div class="col-sm">
+                    Создана пользователем <a {% if perms.users.can_view %}href={% url 'users:manager_detail' object.user.pk %}{% endif %}>{{ object.user.email }}</a>
+                    <div class="border rounded-3 my-3 bg-primary text-light">
+                        <div class="row m-3">
+                            Сообщение
+                        </div>
+                        <div class="border m-1 rounded-3 bg-light text-dark">
+                            <div class="row m-3">
+                                {{ object.message.subject }}
+                            </div>
+                            <div class="row m-3">
+                                {{ object.message.body }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border rounded-3 my-3 bg-primary">
+                        <div class="row m-3 text-light">
+                            Получатели
+                        </div>
+                        <div class="border rounded-3 m-1 bg-light" style="min-height: 131px; max-height: 324px; overflow-y: scroll;">
+                            {% for client in object.clients.all %}
+
+
+                            <div class="row m-3">
+                                <a class="btn btn-outline-primary" href="{% url 'mailshots:clients_detail' client.pk %}">{{ client.email }}</a>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="container text-center border rounded-3">
+                <div class="row border my-3 rounded-3 border-secondary">
+                    <div class="col-sm">Дата и время окончания: {{ object.expires }}</div>
+                </div>
+                {% if object.start_time %}
+                <div class="row border my-3 rounded-3 border-secondary">
+                    <div class="col-sm">Дата и время начала: {{ object.start_time }}</div>
+                </div>
+                <div class="row border my-3 rounded-3 border-secondary">
+                    <div class="col-sm">Время рассылки: {{ object.start_time.time }}</div>
+                </div>
+                {% endif %}
+                <div class="row border my-3 rounded-3 border-secondary">
+                    <div class="col-sm">
+                        Создана: {{ object.created_at }}
+                    </div>
+                </div>
+                <div class="row border my-3 rounded-3 border-secondary">
+                    <div class="col-sm">
+                        Частота рассылки: {% if object.frequency == "DAILY" %}каждый день{% elif object.frequency == "WEEKLY" %}каждую неделю{% else %}каждый месяц{% endif %}
+                    </div>
+                </div>
+                <div class="row border my-3 rounded-3 border-secondary">
+                    <div class="col-sm">
+                        Статус: {{ status }}
+                    </div>
+                </div>
+                <div class="">
+                    {% if perms.mailshots.change_mailshot_periodic_task or object.user == user %}
+                    <div class="row border my-1 rounded-3 border-secondary">
+
+                       <a class="btn btn-primary" href="{% url 'mailshots:update' object.pk 'message' %}">Изменить</a>
+
+                    </div>
+
+                    <div class="row border my-1 rounded-3 border-secondary">
+
+                        <a class="btn btn-danger" href="{% url 'mailshots:delete' object.pk %}">Удалить</a>
+
+                    </div>
+                    {% endif %}
+                    {% if object.enabled %}
+                    <div class="row border my-1 rounded-3 border-secondary">
+
+                        <a class="btn btn-warning" href="{% url 'mailshots:disable' object.pk %}">Отключить</a>
+                        </div>
+                    {% elif not object.enabled and user == object.user %}
+                        <div class="row border my-1 rounded-3 border-secondary">
+
+                            <a class="btn btn-success" href="{% url 'mailshots:enable' object.pk %}">Активировать</a>
+
+                        </div>
+                        {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-sm-11 gy-4">
+        <div class="border rounded-3 p-0 bg-primary text-light">
+                        <div class="m-3">
+                            <a class="text-light btn" href="{% url 'mailshots:logs_list' object.pk %}">Отчёты по проведённым рассылкам</a>
+                        </div>
+                        <div class="border m-1 rounded-3 bg-light text-dark" style="height: 200px; overflow-y: scroll;">
+                            {% for log in object.log_set.all %}
+                            <div class="mt-1">
+                            <a class="btn btn-outline-primary m-2" href="{% url 'mailshots:logs_detail' object.pk log.pk %}">
+                            <div class="  mx-5">
+                               рассылка от {{ log.mailshot_datetime }}
+                            </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+        </div>
+
+    </div>
+</div>
+{% endblock main %}

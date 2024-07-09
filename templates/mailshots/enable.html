@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Активировать рассылку{% endblock title %}
+{% block main %}
+<div class="border mx-auto" style="width: 30rem;">
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-grid d-flex gap-2 justify-content-end m-3">
+        <a class="btn btn-primary" href="{% url 'mailshots:detail' object.pk %}">назад</a>
+    <input type="submit" class="btn btn-success" value="Активировать"/>
+    </div>
+</form>
+</div>
+{% endblock main %}

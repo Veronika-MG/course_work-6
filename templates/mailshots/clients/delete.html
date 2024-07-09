@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Удалить клиента{% endblock title %}
+
+{% block main %}
+<div class="mx-auto border my-5 p-3 rounded-3" style="width: 30rem;">
+<form method="POST">
+    {% csrf_token %}
+<h1>Удалить?</h1>
+<p>Вы уверены, что хотите удалить клиента?</p>
+    <div class="d-grid d-flex gap-2 justify-content-end">
+    <a class="btn btn-primary" href="{% url 'mailshots:clients_detail' object.pk %}">назад</a>
+    <input class="btn btn-danger" type="submit" value="удалить">
+        </div>
+</form>
+    </div>
+{% endblock main %}

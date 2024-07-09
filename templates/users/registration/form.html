@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Регистрация{% endblock title %}
+
+{% block main %}
+<h1 class="mt-5 mb-5" style="text-align: center;">Регистрация</h1>
+<form method="post" class="p-5 border rounded mx-auto" style="max-width: 40rem;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-dark" type="submit" value="зарегистрироваться">
+</form>
+{% endblock main %}

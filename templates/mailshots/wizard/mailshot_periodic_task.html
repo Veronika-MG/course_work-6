@@ -1,0 +1,15 @@
+{% extends "mailshots/wizard/wizard_base.html" %}
+{% block title_form %}
+    Задайте время рассылки
+{% endblock title_form %}
+
+{% block inline_form %}
+    {{ wizard.form.as_p }}
+{% endblock inline_form %}
+
+{% block form_buttons %}
+    <button name="wizard_goto_step" class="btn btn-outline-primary" type="submit" value="{{ wizard.steps.prev }}">
+         к клиентам
+    </button>
+    <input type="submit" class="btn btn-outline-primary" value="сохранить"/>
+{% endblock form_buttons %}

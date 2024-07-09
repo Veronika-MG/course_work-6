@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Пользователь {{ object.email }}{% endblock title %}
+{% block main %}
+<div class=" border p-5 m-5 rounded-3">
+    <h3 class="mb-5">Данные пользователя</h3>
+<div style="width: 50rem;" class="mx-auto my-3 border p-3 rounded-3">
+    email: {{ object.email }}
+</div>
+    <div style="width: 50rem;" class="mx-auto my-3 border p-3 rounded-3">
+        <div>Аватар</div>
+    <img style="width: 40rem; height: 40rem;" class="border d-flex rounded-3" src="{{ object.avatar.url }}">
+</div>
+  <div style="width: 50rem;" class="mx-auto my-3 border p-3 rounded-3">
+    Номер телефона: {% if object.telephone_number %}{{ object.telephone_number }}{% else %}-{% endif %}
+</div>
+      {% if object.is_active %}
+      <div style="width: 50rem;" class="mx-auto mt-5 p-3 d-flex flex-row justify-content-end">
+        <a class="btn btn-lg btn-danger" href="{% url 'users:manager_deactivate' object.pk %}">Деактивировать</a>
+</div>
+    {% endif %}
+    </div>
+
+{% endblock main %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Рассылка от {{ object.mailshot_datetime }}
+{% endblock title %}
+
+{% block main %}
+    <div class="border rounded-3 mx-auto p-3" style="max-width: 50rem;">
+        <h1 class="ms-2">Данные рассылки от {{ object.mailshot_datetime }}</h1>
+        <div class="mb-1 ms-2">
+            <a href="{% url 'mailshots:detail' object.mailshot.pk %}"><p class="mb-1 ms-2">Рассылка</p></a>
+            <div class="border rounded-3 p-3">{{ object.mailshot.defined_name }}</div>
+        </div>
+        <div class="mb-1 ms-2">
+            <p class="mb-1 ms-2">Статус</p>
+            <div class="border rounded-3 p-3">{{ object.status }}</div>
+        </div>
+        <div class="mb-1 ms-2">
+            <p class="mb-1 ms-2">Ответ почтового сервиса</p>
+            <div class="border rounded-3 p-3">{{ object.response }}</div>
+        </div>
+    </div>
+{% endblock main %}

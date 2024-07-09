@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block main %}
+{% for object in object_list %}
+<div>
+    <div class="card m-3 mx-auto" style="max-width: 50rem;">
+  <a class="btn {% if object.is_active %}btn-outline-primary{% else %}btn-outline-danger{% endif %}" href="{% url 'users:manager_detail' object.pk %}"><div class="card-body">
+    {{ object.email }}
+  </div>
+  </a>
+</div>
+</div>
+{% endfor %}
+{% endblock main %}

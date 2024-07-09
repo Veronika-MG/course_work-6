@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div style="max-width: 50rem;" class="mx-auto">
+<h1 class="me-5" style="display: inline-block;">Отчёты по рассылке</h1>
+
+
+{% for object in object_list %}
+<div class="card m-3 mx-auto" style="max-width: 50rem;">
+  <a class="btn btn-outline-primary" href="{% url 'mailshots:logs_detail' mailshot_pk object.pk %}"><div class="card-body">
+    рассылка от {{ object.mailshot_datetime }}
+  </div>
+  </a>
+</div>
+{% endfor %}
+</div>
+{% endblock main %}

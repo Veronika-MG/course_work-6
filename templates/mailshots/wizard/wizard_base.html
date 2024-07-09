@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block main %}
+<div style="max-width: 40rem;" class="mx-auto">
+    <h3 class="my-3 mx-5">{% block title_form %}{% endblock %}</h3>
+    <form class="mx-5" method="POST" novalidate>
+        {% csrf_token  %}
+        {{ wizard.management_form }}
+        <div class="">
+          {% block inline_form %}
+
+          {% endblock inline_form %}
+        </div>
+        <div class="d-flex justify-content-end">
+            {% block form_buttons %}
+
+            {% endblock %}
+        </div>
+    </form>
+</div>
+{% endblock main %}

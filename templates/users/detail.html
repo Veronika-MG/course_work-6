@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Профиль{% endblock title %}
+
+{% block main %}
+<h1 style="max-width: 50rem;" class="mx-auto my-3">Ваш профиль</h1>
+<div style="max-width:50rem;" class="mx-auto my-3 border rounded p-3 pl-5 d-flex align-items-start">
+
+<img style="width:7rem; height: 7rem;" class="border border-2 rounded-circle border-dark" src="{{ user.avatar.url }}">
+    <div style="display: inline-block;" class="p-3">
+        <p>email: {{ user.email }}</p>
+        <p>номер телефона: {% if user.telephone_number is None %}  -  {% else %}{{ user.telephone_number }}{% endif %}</p>
+        <p>страна: {% if user.country is None %}  -  {% else %}{{ user.country }}{% endif %}</p>
+        <a href="{% url 'users:update' %}" class="btn btn-dark">Редактировать</a>
+        <a href="{% url 'users:logout_preview' %}" class="btn btn-danger">Выйти</a>
+    </div>
+</div>
+{% endblock main %}

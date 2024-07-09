@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ object.heading }}{% endblock title %}
+
+{% block main %}
+<div>
+    <div style="display: inline-block;" class="d-flex justify-content-start m-5">
+    <img style="width:50rem;" class="border rounded-3" src="{{ object.image.url }}"/>
+        <div class="d-flex flex-column">
+        <div class="fs-1 m-5">
+            {{ object.heading }}
+        </div>
+        <div class="fs-5 m-5">
+            {{ object.body }}
+        </div>
+        <div class="fs-5 m-5">
+            {{ object.published_at }}
+        </div>
+                    <div class="fs-5 m-5">
+            количество просмотров: {{ object.views_amount }}
+        </div>
+        </div>
+    </div>
+
+</div>
+{% endblock main %}
