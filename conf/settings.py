@@ -88,12 +88,13 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'OPTIONS': {
-            'service': 'mailshot_site',
-            'passfile': '.pgpass'
-        }
+    "default": {
+        "ENGINE": os.getenv("ENGINE"),
+        "NAME": os.getenv("NAME"),  # Название БД
+        "USER": os.getenv("POSTGRES_USER"),  # Пользователь для подключения
+        "PASSWORD": os.getenv("PASSWORD"),  # Пароль для этого пользователя
+        "HOST": os.getenv("HOST"),  # Адрес, на котором развернут сервер БД
+        "PORT": os.getenv("PORT"),  # Порт, на котором работает сервер БД
     }
 }
 
@@ -159,7 +160,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
 
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 

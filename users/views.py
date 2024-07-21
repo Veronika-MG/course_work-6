@@ -42,7 +42,7 @@ class RegistrationMessage(EmailValidationMessage):
     body_template_name = "users/email/registration/body.html"
 
     protocol = "http"
-    domain = Site.objects.get_current().domain
+    domain = 'localhost:8000'
     viewname = "users:registration_link"
 
 
